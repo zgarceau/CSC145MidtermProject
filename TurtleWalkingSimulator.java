@@ -1,4 +1,6 @@
+
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,15 +28,20 @@ public class TurtleWalkingSimulator extends Application
     
     public void start(Stage primaryStage)
     {
+        turtle = new Image("CommunistDoggo.jpg");
+        image = new ImageView(turtle);
+        image.setScaleX(.20);
+        image.setScaleY(.20);
+        
         steps = new TextField();
         steps.setMaxWidth(50);
         
         walk = new Button("Walk");
-        //walk.setOnAction(this::processButtonPress);
+        walk.setOnAction(this::processButtonPress);
         
         HBox guide = new HBox(steps, walk);
         
-        Group root = new Group(guide);
+        Group root = new Group(guide, image);
         Scene scene = new Scene(root, 700, 700, Color.BLACK);
         
         primaryStage.setTitle("Turtle Walking Simulator");
@@ -42,9 +49,11 @@ public class TurtleWalkingSimulator extends Application
         primaryStage.show();
     }
     
-    public void processButtonPress()
+    public void processButtonPress(ActionEvent event)
     {
-        
+        Integer stepsInt = new Integer(steps.getText());
+        stepCounter = stepsInt;
+        System.out.println(stepCounter);
     }
 
     public static void main(String[] args) 
