@@ -1,4 +1,5 @@
 
+import java.util.Random;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
@@ -53,7 +54,23 @@ public class TurtleWalkingSimulator extends Application
     {
         Integer stepsInt = new Integer(steps.getText());
         stepCounter = stepsInt;
-        System.out.println(stepCounter);
+        
+        Random generator = new Random();
+        for(int s = 0; s < stepCounter; s++)
+        {
+            int direction = generator.nextInt(4);
+            switch(direction)
+            {
+                case(0):
+                    image.setTranslateX(5);
+                case(1):
+                    image.setTranslateY(5);
+                case(2):
+                    image.setTranslateX(-5);
+                case(3):
+                    image.setTranslateY(-5);
+            }
+        }    
     }
 
     public static void main(String[] args) 
