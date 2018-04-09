@@ -1,4 +1,5 @@
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.Random;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -31,7 +32,7 @@ import javax.sound.sampled.Clip;
 //Note: The project has audio. If the wav file is not
 //      found, the program will still run just as intended
 
-public class Frame extends Application
+public class TurtleSkate extends Application
 {
     private Spinner<Integer> steps;
     private Button run;
@@ -49,25 +50,28 @@ public class Frame extends Application
     {
         //This is supposed to display text where the turtle walks
         directionsOpener = new Text("Directions: ");
-        directionsOpener.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, REGULAR, 44));
+        directionsOpener.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, REGULAR, 36));
         directionsOpener.setFill(Color.WHITE);
         directionsOpener.setStroke(Color.PURPLE);
         directionsOpener.setStrokeWidth(3);
         directionsOpener.setTranslateX(310);
+        directionsOpener.setTranslateY(4);
         
         //Arrows
         directions = new Text();
-        directions.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, REGULAR, 44));
+        directions.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, REGULAR, 34));
         directions.setStroke(Color.PURPLE);
-        directions.setStrokeWidth(6);
+        directions.setStrokeWidth(5);
         directions.setTranslateX(310);
+        directions.setTranslateY(4);
         
-        dist = new Text("Dist: 95");
-        dist.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, REGULAR, 44));
+        dist = new Text("Dist: ");
+        dist.setFont(Font.font("Helvetica", FontWeight.EXTRA_BOLD, REGULAR, 36));
         dist.setFill(Color.WHITE);
         dist.setStroke(Color.PURPLE);
         dist.setStrokeWidth(3);
         dist.setTranslateX(1025);
+        dist.setTranslateY(4);
         
 
         //HBox for directions
@@ -122,7 +126,7 @@ public class Frame extends Application
         //Spinner that allows up to 100 max steps for turtle
         //Can be changed to text input instead
         SpinnerValueFactory.IntegerSpinnerValueFactory svf =
-        new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 5);
+        new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 13, 5);
         steps = new Spinner<Integer>(svf);
         steps.setScaleX(1.4);
         steps.setScaleY(1.4);
@@ -268,14 +272,15 @@ public class Frame extends Application
                     break;
             }
         }
+        DecimalFormat nf = new DecimalFormat("#.00");
         
         directions.setText(directionText);
-        int pointTwoX = (int)franklin.getX();
-        int pointTwoY = (int)franklin.getY();
-        int partOne = (int)Math.pow(pointTwoX - pointOneX,2);
-        int partTwo = (int)Math.pow(pointTwoY - pointOneY,2);
-        int distance = (int)Math.sqrt(partOne + partTwo);
-        String distanceString = "Dist: " + distance;
+        double pointTwoX = (double)franklin.getX();
+        double pointTwoY = (double)franklin.getY();
+        double partOne = (double)Math.pow(pointTwoX - pointOneX,2);
+        double partTwo = (double)Math.pow(pointTwoY - pointOneY,2);
+        double distance = (double)Math.sqrt(partOne + partTwo);
+        String distanceString = "Dist: " + (nf.format(distance/100));
         dist.setText(distanceString);
     }
         
